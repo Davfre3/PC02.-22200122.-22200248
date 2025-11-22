@@ -1,12 +1,28 @@
 <template>
   <q-page class="digimon-list-page q-pa-md">
     <!-- Banner superior con logo -->
-    <div class="banner-wrapper q-mb-lg flex flex-center">
-      <img
-        class="digimon-logo"
-        :src="digimonLogo"
-        alt="Digimon Logo"
-      />
+    <div class="banner-wrapper q-mb-lg">
+      <div class="flex flex-center">
+        <img
+          class="digimon-logo"
+          :src="digimonLogo"
+          alt="Digimon Logo"
+        />
+      </div>
+      <!-- Botón cerrar sesión -->
+      <div class="absolute-top-right q-pa-md">
+        <q-btn
+          flat
+          round
+          dense
+          icon="logout"
+          color="white"
+          size="md"
+          @click="logout"
+        >
+          <q-tooltip>Cerrar sesión</q-tooltip>
+        </q-btn>
+      </div>
     </div>
 
     <!-- Filtros arriba -->
@@ -73,11 +89,13 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import digimonLogo from '../../imagen/digimon-logo.png'
 import { api } from 'boot/axios'
 import DigimonCard from 'components/digimon/DigimonCard.vue'
 import DigimonFilter from 'components/digimon/DigimonFilter.vue'
 
+const router = useRouter()
 const digimons = ref([])
 const loading = ref(false)
 const error = ref(null)
@@ -123,6 +141,13 @@ const fetchDigimons = async () => {
 
 const handleFilterChange = (newFilters) => {
   filters.value = { ...newFilters }
+}
+
+const logout = () => {
+  // Limpiar localStorage
+  localStorage.removeItem('user')
+  // Redirigir al login
+  router.push('/')
 }
 
 onMounted(() => {
