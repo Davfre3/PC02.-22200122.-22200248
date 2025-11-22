@@ -12,6 +12,16 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
+        <q-item to="/digimons" clickable tag="router-link">
+          <q-item-section avatar>
+            <q-icon name="pets" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Digimons</q-item-label>
+            <q-item-label caption>Lista y filtros</q-item-label>
+          </q-item-section>
+        </q-item>
+
         <q-item-label header> Essential Links </q-item-label>
 
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
