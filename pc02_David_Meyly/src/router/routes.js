@@ -6,6 +6,9 @@ const routes = [
       { path: '', component: () => import('pages/IndexPage.vue') },
       { path: 'digimons', component: () => import('pages/digimon/DigimonListPage.vue') }
     ],
+
+    children: [{ path: '', component: () => import('pages/LoginPage.vue') }],
+
   },
 
   // Always leave this as last one,
